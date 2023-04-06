@@ -1,14 +1,21 @@
 const express = require('express');
-
+const User = require('./Models/User');
 const app = express();
 
 //connect db
 require('./config/dbconnect')();
 
+app.use(express.json());
 //Routes
 //Users Routes
-app.post('/api/users/register' , (req,res) => {
-    res.send('Register Route');
+app.post('/api/users/register' , async (req,res) => {
+    try {
+        const {name,email,password} = req.body;
+        const user = await User.create({name,email,password});
+        console.log(user);
+    } catch (error) {
+        console.log(error)
+    }
 });
 
 app.post('/api/users/login' , (req,res) => {
