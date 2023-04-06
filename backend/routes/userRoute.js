@@ -17,7 +17,7 @@ usersRoute.post('/register', asynchHandler(async (req, res) => {
 usersRoute.post('/login' , asynchHandler(async (req,res) => {
     const {email , password} = req.body;
     const userExist = await User.findOne({email : email});
-    if(userExist && (await user.isPasswordMatch(password))){
+    if(userExist && (await userExist.isPasswordMatch(password))){
         //set status code
         res.status(200);
         res.json({
